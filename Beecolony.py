@@ -66,6 +66,7 @@ def load_nodes(filename):
 nodes = load_nodes(r"C:\Users\ansul\Desktop\New folder (5)\New folder\datasets\data2")
 
 
+# Bee Colony Optimization Algorithm
 
 def main():
     epoch = 10
@@ -86,9 +87,11 @@ def main():
         print ("\nEpoch", e + 1)
 
         print ("forward pass")
+        # forward pass
         for bee in bees:
             bee.choose_rand_move(n_move, nodes)
 
+        # backward pass
         print ("evaluating")
         bees = sorted(bees, key=lambda be: be.distance, reverse=False)
         best_bee = bees[0]
@@ -114,6 +117,7 @@ def main():
 
         print ("number of recruiter", len(recruiters))
         print ("Bees are choosing their recruiter")
+        # creating a roulette wheel
         divider = sum([(Cmax - bee.distance) / (Cmax - Cmin) for bee in recruiters])
         probs = [((Cmax - bee.distance) / (Cmax - Cmin)) / divider for bee in recruiters]
         cumulative_probs = [sum(probs[:x + 1]) for x in range(len(probs))]
@@ -130,18 +134,53 @@ def main():
         e += 1
 
 
+# sandbox()
+main()
+# Bee Colony Optimization Algorithm
+import math
+from IPython import display
+import pylab as pl
+import time
 def sandbox():
     x = [node.pos[0] for node in nodes]
     y = [node.pos[1] for node in nodes]
     l = [node.idn for node in nodes]
-
+    print(route)
+    print(type(x[0]))
+    print(type(route[0]))
+    x1=[]
+    y1=[]
+    for i in route:
+        x1.append(float(x[int(i)-1]))
+        y1.append(float(y[int(i)-1]))
+    minx=min(x1)  
+    maxx=max(x1)
+    miny=min(y1)
+    maxy=max(y1)
+    plt.figure(figsize=(20,10))
+    for i in range(1,len(x1)):
+        k=x1[0:i]
+        u=y1[0:i]
+        plt.plot(k, u, color='green', linestyle='dashed', linewidth = 3, marker='o', markerfacecolor='blue', markersize=12) 
+        plt.xlim([minx-1, maxx+1])
+        plt.ylim([miny-1, maxy+1])
+        plt.yticks(np.arange(math.floor(miny-1),math.ceil( maxy+1), 5))
+        plt.xticks(np.arange(math.floor(minx-1),math.ceil( maxx+1),2))
+        display.clear_output(wait=True)
+        display.display(pl.gcf())
+        time.sleep(1.0)
+        
+    plt.figure(figsize=(20,10))
     fig, ax = plt.subplots()
     ax.scatter(x, y)
 
     for i, lbl in enumerate(l):
         ax.annotate(lbl, (x[i], y[i]))
 
+    
     plt.show()
 
 
-main()
+# sandbox()
+
+sandbox()
