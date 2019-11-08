@@ -2,7 +2,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import random as r
 
-
+#Initialising Nodes
 class Node:
     def __init__(self, idn, x, y):
         self.idn = idn
@@ -51,7 +51,7 @@ class Bee:
         else:
             return False
 
-
+#Loading the Nodes
 def load_nodes(filename):
     ret = []
     with open(filename) as f:
